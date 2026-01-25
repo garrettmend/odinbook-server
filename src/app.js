@@ -24,8 +24,6 @@ export function createApp() {
 
   // ESM-compatible __dirname
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
-  const clientDist = path.join(__dirname, '../../client/dist');
-  app.use(express.static(clientDist));
 
   configurePassport();
   configureCloudinary();
@@ -57,11 +55,6 @@ export function createApp() {
   app.use("/api/conversations", conversationRouter);
   app.use("/api/notifications", notificationsRouter);
 
-
-  // Fallback: serve index.html for any non-API route (SPA support)
-  app.get(/^\/((?!api).)*$/, (req, res) => {
-    res.sendFile(path.join(clientDist, 'index.html'));
-  });
 
   app.use((err, req, res, next) => {
     const message = err?.message ?? "Unknown error";
