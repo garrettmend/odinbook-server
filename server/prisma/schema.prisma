@@ -1,0 +1,170 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id              String   @id @default(cuid())
+  email           String   @unique
+  name            String?
+  bio             String?  @db.VarChar(255)
+  passwordHash    String
+  avatarUrl       String?
+  avatarPublicId  String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  posts           Post[]
+  comments        Comment[]
+
+  // Friend requests (explicit join model so we can represent "pending")
+  sentFriendRequests     FriendRequest[] @relation("FriendRequestSender")
+  receivedFriendRequests FriendRequest[] @relation("FriendRequestReceiver")
+
+  // Likes (many-to-many)
+  likedPosts      Post[]    @relation("PostLikes")
+  likedComments   Comment[] @relation("CommentLikes")
+
+  // Direct messages
+  sentMessages     Message[] @relation("MessageSender")
+  receivedMessages Message[] @relation("MessageReceiver")
+
+  // Conversations (group chats / rooms)
+  conversationMemberships ConversationMember[]
+  notifications           Notification[]
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  content   String?  @db.VarChar(255)
+  photoUrl      String? @db.VarChar(255)
+  photoPublicId String? @db.VarChar(255)
+  mediaType  MediaType?
+  createdAt DateTime @default(now())
+
+  // Foreign keys
+  senderId  String
+  receiverId String?
+  conversationId String?
+
+  // Relations
+  sender    User     @relation("MessageSender", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver  User?    @relation("MessageReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
+  conversation Conversation? @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([receiverId, createdAt])
+  @@index([senderId, createdAt])
+  @@index([conversationId, createdAt])
+}
+
+model Conversation {
+  id        String   @id @default(cuid())
+  title     String?  @db.VarChar(100)
+  isGroup   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  members   ConversationMember[]
+  messages  Message[]
+}
+
+model ConversationMember {
+  id             String   @id @default(cuid())
+  conversationId String
+  userId         String
+  createdAt      DateTime @default(now())
+
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([conversationId, userId])
+  @@index([userId])
+}
+
+enum FriendRequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+model FriendRequest {
+  id          String              @id @default(cuid())
+  status      FriendRequestStatus @default(PENDING)
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+
+  // Who sent the request
+  senderId    String
+  sender      User                @relation("FriendRequestSender", fields: [senderId], references: [id], onDelete: Cascade)
+
+  // Who receives the request
+  receiverId  String
+  receiver    User                @relation("FriendRequestReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  // Prevent duplicate requests for the same pair.
+  // (You may still want app-level logic to avoid senderId === receiverId.)
+  @@unique([senderId, receiverId])
+  @@index([receiverId, status])
+  @@index([senderId, status])
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  content   String   @db.VarChar(255)
+  photoUrl  String?  @db.VarChar(255)
+  photoPublicId String? @db.VarChar(255)
+  mediaType  MediaType?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  comments  Comment[]
+
+  // Users who liked this post
+  likedBy   User[]   @relation("PostLikes")
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Foreign keys
+  postId    String
+  authorId  String
+
+  // Relations
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  // Users who liked this comment
+  likedBy   User[]   @relation("CommentLikes")
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String   @db.VarChar(50)
+  data      Json
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, read, createdAt])
+}

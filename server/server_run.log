@@ -1,0 +1,137 @@
+﻿[dotenv@17.2.3] injecting env (8) from .env -- tip: ΓÜÖ∩╕Å  suppress all logs with { quiet: true }
+API listening on http://localhost:3000
+Socket.IO listening on ws://localhost:3000
+[0mGET /api/notifications/unread [36m304[0m 109.594 ms - -[0m
+[0mGET /api/users/cmkot7vxv0000qwlgj6eh2qtn [36m304[0m 3.160 ms - -[0m
+[0mGET /api/users/cmkov21az0002fslgnw6yet3p [36m304[0m 133.583 ms - -[0m
+[socket] Found 3 unread notifications for user cmkov21az0002fslgnw6yet3p on connect
+[socket] Sent notifications:batch to user cmkov21az0002fslgnw6yet3p
+[0mGET /api/users/cmkot7vxv0000qwlgj6eh2qtn [36m304[0m 3.506 ms - -[0m
+[0mGET /api/users/cmkov21az0002fslgnw6yet3p [36m304[0m 2.830 ms - -[0m
+[0mGET /uploads [32m200[0m 2.588 ms - 453[0m
+[socket] user cmkov21az0002fslgnw6yet3p disconnected: transport close
+[0mGET /api/me [36m304[0m 43.707 ms - -[0m
+[0mGET /api/notifications/unread [36m304[0m 46.795 ms - -[0m
+[0mGET /api/me [36m304[0m 3.976 ms - -[0m
+[0mGET /api/users/cmkot7vxv0000qwlgj6eh2qtn [36m304[0m 5.505 ms - -[0m
+[0mGET /api/conversations [36m304[0m 56.923 ms - -[0m
+[0mGET /api/users/cmkov21az0002fslgnw6yet3p [36m304[0m 143.079 ms - -[0m
+[0mGET /api/posts [36m304[0m 4.811 ms - -[0m
+[0mGET /api/posts/cmkpzotej000094lgzi6y5yw3/like [36m304[0m 15.012 ms - -[0m
+[0mGET /api/posts/cmkpzkkra0014l0lgp1hzgzhw/like [36m304[0m 12.995 ms - -[0m
+[0mGET /api/posts/cmkpzkkr90013l0lggdjiit8h/like [36m304[0m 12.230 ms - -[0m
+[0mGET /api/posts/cmkpzkkr70012l0lg01mi014p/like [36m304[0m 12.430 ms - -[0m
+[0mGET /api/posts/cmkpzkkr5000zl0lg7tquctj8/like [36m304[0m 8.521 ms - -[0m
+[0mGET /api/posts/cmkpzkkr4000yl0lgl4xhl1un/like [36m304[0m 7.421 ms - -[0m
+[0mGET /api/posts/cmkpzkkr3000xl0lg0lw1bh6g/like [36m304[0m 7.130 ms - -[0m
+[0mGET /api/posts/cmkpzkkr2000wl0lgxml5z58n/like [36m304[0m 9.195 ms - -[0m
+[0mGET /api/posts/cmkpzkkr0000vl0lgk8tod0fg/like [36m304[0m 8.241 ms - -[0m
+[0mGET /api/posts/cmkpzkkqz000ul0lgh5m6j2nx/like [36m304[0m 7.340 ms - -[0m
+[0mGET /api/posts/cmkpzkkqy000tl0lg48jw5xb8/like [36m304[0m 5.512 ms - -[0m
+[0mGET /api/posts/cmkpzkkqx000sl0lgi4sq9ro8/like [36m304[0m 8.101 ms - -[0m
+[0mGET /api/posts/cmkpzkkqw000rl0lg1uf6v8mt/like [36m304[0m 10.284 ms - -[0m
+[0mGET /api/posts/cmkpzkkqv000ql0lgqaku8egv/like [36m304[0m 9.402 ms - -[0m
+[0mGET /api/posts/cmkpzkkqu000pl0lgesevvikp/like [36m304[0m 8.942 ms - -[0m
+[0mGET /api/posts/cmkpzkkqt000ol0lglxxfqwgc/like [36m304[0m 7.856 ms - -[0m
+[0mGET /api/posts/cmkpzkkqs000nl0lglbzdg3q9/like [36m304[0m 4.429 ms - -[0m
+[0mGET /api/posts/cmkpzkkqr000ml0lg2owf6oxt/like [36m304[0m 4.013 ms - -[0m
+[0mGET /api/posts/cmkpzkkr70011l0lgkjgs095a/like [36m304[0m 62.588 ms - -[0m
+[0mGET /api/posts/cmkpzkkr60010l0lg0k1xkvgs/like [36m304[0m 61.720 ms - -[0m
+[socket] Found 3 unread notifications for user cmkov21az0002fslgnw6yet3p on connect
+[socket] Sent notifications:batch to user cmkov21az0002fslgnw6yet3p
+[0mGET /api/users/cmkot7vxv0000qwlgj6eh2qtn [36m304[0m 1.676 ms - -[0m
+[0mGET /api/users/cmkov21az0002fslgnw6yet3p [36m304[0m 1.244 ms - -[0m
+[socket] user cmkov21az0002fslgnw6yet3p disconnected: client namespace disconnect
+[0mGET /api/posts [36m304[0m 3.462 ms - -[0m
+[0mPOST /api/auth/login [32m200[0m 126.475 ms - 428[0m
+[0mGET /api/notifications/unread [32m200[0m 9.279 ms - 1082[0m
+[0mGET /api/users/cmkot7vxv0000qwlgj6eh2qtn [36m304[0m 2.357 ms - -[0m
+[0mGET /api/me [32m200[0m 41.281 ms - 327[0m
+[0mGET /api/users/cmkov21az0002fslgnw6yet3p [36m304[0m 38.429 ms - -[0m
+[0mGET /api/conversations [36m304[0m 53.560 ms - -[0m
+[0mGET /api/posts/home [36m304[0m 52.665 ms - -[0m
+[0mGET /api/posts/cmkpzotej000094lgzi6y5yw3/like [36m304[0m 5.955 ms - -[0m
+[0mGET /api/posts/cmkpzcpl10000z4lgwkqs6sdo/like [36m304[0m 5.584 ms - -[0m
+[0mGET /api/posts/cmkov00gu0000fslgsu6selyx/like [36m304[0m 5.954 ms - -[0m
+[socket] Found 3 unread notifications for user cmkot7vxv0000qwlgj6eh2qtn on connect
+[socket] Sent notifications:batch to user cmkot7vxv0000qwlgj6eh2qtn
+[0mGET /api/users/cmkot7vxv0000qwlgj6eh2qtn [36m304[0m 1.668 ms - -[0m
+[0mGET /api/users/cmkov21az0002fslgnw6yet3p [36m304[0m 1.278 ms - -[0m
+[0mGET /api/posts [36m304[0m 2.903 ms - -[0m
+[0mGET /api/posts/cmkpzotej000094lgzi6y5yw3/like [36m304[0m 12.421 ms - -[0m
+[0mGET /api/posts/cmkpzkkra0014l0lgp1hzgzhw/like [36m304[0m 10.505 ms - -[0m
+[0mGET /api/posts/cmkpzkkr90013l0lggdjiit8h/like [36m304[0m 9.997 ms - -[0m
+[0mGET /api/posts/cmkpzkkr70012l0lg01mi014p/like [36m304[0m 10.893 ms - -[0m
+[0mGET /api/posts/cmkpzkkr70011l0lgkjgs095a/like [36m304[0m 10.334 ms - -[0m
+[0mGET /api/posts/cmkpzkkr5000zl0lg7tquctj8/like [36m304[0m 9.859 ms - -[0m
+[0mGET /api/posts/cmkpzkkr4000yl0lgl4xhl1un/like [36m304[0m 8.761 ms - -[0m
+[0mGET /api/posts/cmkpzkkr3000xl0lg0lw1bh6g/like [36m304[0m 7.990 ms - -[0m
+[0mGET /api/posts/cmkpzkkr2000wl0lgxml5z58n/like [36m304[0m 6.824 ms - -[0m
+[0mGET /api/posts/cmkpzkkr0000vl0lgk8tod0fg/like [36m304[0m 8.944 ms - -[0m
+[0mGET /api/posts/cmkpzkkqz000ul0lgh5m6j2nx/like [36m304[0m 7.695 ms - -[0m
+[0mGET /api/posts/cmkpzkkqy000tl0lg48jw5xb8/like [36m304[0m 7.214 ms - -[0m
+[0mGET /api/posts/cmkpzkkqx000sl0lgi4sq9ro8/like [36m304[0m 8.006 ms - -[0m
+[0mGET /api/posts/cmkpzkkqw000rl0lg1uf6v8mt/like [36m304[0m 9.700 ms - -[0m
+[0mGET /api/posts/cmkpzkkqv000ql0lgqaku8egv/like [36m304[0m 8.290 ms - -[0m
+[0mGET /api/posts/cmkpzkkqu000pl0lgesevvikp/like [36m304[0m 6.106 ms - -[0m
+[0mGET /api/posts/cmkpzkkqt000ol0lglxxfqwgc/like [36m304[0m 5.600 ms - -[0m
+[0mGET /api/posts/cmkpzkkqs000nl0lglbzdg3q9/like [36m304[0m 6.192 ms - -[0m
+[0mGET /api/posts/cmkpzkkqr000ml0lg2owf6oxt/like [36m304[0m 2.548 ms - -[0m
+[0mGET /api/posts/cmkpzkkr60010l0lg0k1xkvgs/like [36m304[0m 52.882 ms - -[0m
+[0mGET /api/posts/cmkpzotej000094lgzi6y5yw3 [36m304[0m 2.301 ms - -[0m
+[0mGET /api/posts/cmkpzotej000094lgzi6y5yw3/like [32m200[0m 7.585 ms - 11[0m
+[0mGET /api/posts/cmkpzotej000094lgzi6y5yw3/comments [36m304[0m 9.601 ms - -[0m
+[notify] Created notification cmkq0ac9k0000kwlg1rodan8u for user cmkov21az0002fslgnw6yet3p: like
+[notify] User cmkov21az0002fslgnw6yet3p is offline
+[0mPOST /api/posts/cmkpzotej000094lgzi6y5yw3/like [32m204[0m 33.113 ms - -[0m
+[0mGET /api/posts/cmkpzotej000094lgzi6y5yw3/like [32m200[0m 2.632 ms - 11[0m
+[0mGET /api/posts [36m304[0m 2.973 ms - -[0m
+[0mGET /api/posts/cmkpzotej000094lgzi6y5yw3/like [36m304[0m 13.081 ms - -[0m
+[0mGET /api/posts/cmkpzkkra0014l0lgp1hzgzhw/like [36m304[0m 11.908 ms - -[0m
+[0mGET /api/posts/cmkpzkkr90013l0lggdjiit8h/like [36m304[0m 11.337 ms - -[0m
+[0mGET /api/posts/cmkpzkkr70012l0lg01mi014p/like [36m304[0m 10.632 ms - -[0m
+[0mGET /api/posts/cmkpzkkr70011l0lgkjgs095a/like [36m304[0m 9.895 ms - -[0m
+[0mGET /api/posts/cmkpzkkr60010l0lg0k1xkvgs/like [36m304[0m 9.092 ms - -[0m
+[0mGET /api/posts/cmkpzkkr5000zl0lg7tquctj8/like [36m304[0m 10.883 ms - -[0m
+[0mGET /api/posts/cmkpzkkr4000yl0lgl4xhl1un/like [36m304[0m 10.323 ms - -[0m
+[0mGET /api/posts/cmkpzkkr3000xl0lg0lw1bh6g/like [36m304[0m 10.745 ms - -[0m
+[0mGET /api/posts/cmkpzkkr2000wl0lgxml5z58n/like [36m304[0m 10.236 ms - -[0m
+[0mGET /api/posts/cmkpzkkr0000vl0lgk8tod0fg/like [36m304[0m 9.832 ms - -[0m
+[0mGET /api/posts/cmkpzkkqz000ul0lgh5m6j2nx/like [36m304[0m 9.455 ms - -[0m
+[0mGET /api/posts/cmkpzkkqy000tl0lg48jw5xb8/like [36m304[0m 13.352 ms - -[0m
+[0mGET /api/posts/cmkpzkkqx000sl0lgi4sq9ro8/like [36m304[0m 12.182 ms - -[0m
+[0mGET /api/posts/cmkpzkkqw000rl0lg1uf6v8mt/like [36m304[0m 11.430 ms - -[0m
+[0mGET /api/posts/cmkpzkkqv000ql0lgqaku8egv/like [36m304[0m 10.707 ms - -[0m
+[0mGET /api/posts/cmkpzkkqu000pl0lgesevvikp/like [36m304[0m 10.185 ms - -[0m
+[0mGET /api/posts/cmkpzkkqt000ol0lglxxfqwgc/like [36m304[0m 9.695 ms - -[0m
+[0mGET /api/posts/cmkpzkkqs000nl0lglbzdg3q9/like [36m304[0m 3.300 ms - -[0m
+[0mGET /api/posts/cmkpzkkqr000ml0lg2owf6oxt/like [36m304[0m 2.608 ms - -[0m
+[0mGET /api/posts/home [36m304[0m 4.569 ms - -[0m
+[0mGET /api/posts/cmkpzotej000094lgzi6y5yw3/like [36m304[0m 5.563 ms - -[0m
+[0mGET /api/posts/cmkpzcpl10000z4lgwkqs6sdo/like [36m304[0m 4.950 ms - -[0m
+[0mGET /api/posts/cmkov00gu0000fslgsu6selyx/like [36m304[0m 4.354 ms - -[0m
+[0mGET /api/me [36m304[0m 6.576 ms - -[0m
+[0mGET /api/posts/cmkot7vxv0000qwlgj6eh2qtn/posts [36m304[0m 6.684 ms - -[0m
+[0mGET /api/friends [32m200[0m 6.153 ms - 154[0m
+[0mGET /api/posts/cmkov00gu0000fslgsu6selyx/like [36m304[0m 2.698 ms - -[0m
+[0mGET /api/posts [36m304[0m 3.551 ms - -[0m
+[0mGET /api/posts/cmkpzotej000094lgzi6y5yw3/like [36m304[0m 10.220 ms - -[0m
+[0mGET /api/posts/cmkpzkkra0014l0lgp1hzgzhw/like [36m304[0m 8.933 ms - -[0m
+[0mGET /api/posts/cmkpzkkr90013l0lggdjiit8h/like [36m304[0m 7.932 ms - -[0m
+[0mGET /api/posts/cmkpzkkr70012l0lg01mi014p/like [36m304[0m 7.655 ms - -[0m
+[0mGET /api/posts/cmkpzkkr70011l0lgkjgs095a/like [36m304[0m 7.981 ms - -[0m
+[0mGET /api/posts/cmkpzkkr60010l0lg0k1xkvgs/like [36m304[0m 7.317 ms - -[0m
+[0mGET /api/posts/cmkpzkkr5000zl0lg7tquctj8/like [36m304[0m 8.341 ms - -[0m
+[0mGET /api/posts/cmkpzkkr4000yl0lgl4xhl1un/like [36m304[0m 7.748 ms - -[0m
+[0mGET /api/posts/cmkpzkkr3000xl0lg0lw1bh6g/like [36m304[0m 7.264 ms - -[0m
+[0mGET /api/posts/cmkpzkkr2000wl0lgxml5z58n/like [36m304[0m 6.586 ms - -[0m
+[0mGET /api/posts/cmkpzkkr0000vl0lgk8tod0fg/like [36m304[0m 8.800 ms - -[0m
+[0mGET /api/posts/cmkpzkkqz000ul0lgh5m6j2nx/like [36m304[0m 8.240 ms - -[0m
+[0mGET /api/posts/cmkpzkkqy000tl0lg48jw5xb8/like [36m304[0m 9.205 ms - -[0m
+[0mGET /api/posts/cmkpzkkqx000sl0lgi4sq9ro8/like [36m304[0m 9.121 ms - -[0m
+[0mGET /api/posts/cmkpzkkqw000rl0lg1uf6v8mt/like [36m304[0m 8.525 ms - -[0m
+[0mGET /api/posts/cmkpzkkqv000ql0lgqaku8egv/like [36m304[0m 7.018 ms - -[0m
+[0mGET /api/posts/cmkpzkkqu000pl0lgesevvikp/like [36m304[0m 6.523 ms - -[0m
+[0mGET /api/posts/cmkpzkkqt000ol0lglxxfqwgc/like [36m304[0m 5.978 ms - -[0m
+[0mGET /api/posts/cmkpzkkqs000nl0lglbzdg3q9/like [36m304[0m 4.616 ms - -[0m
+[0mGET /api/posts/cmkpzkkqr000ml0lg2owf6oxt/like [36m304[0m 4.109 ms - -[0m
