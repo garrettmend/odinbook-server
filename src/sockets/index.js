@@ -107,7 +107,8 @@ export function setupSockets(io) {
     (async () => {
       try {
         const u = await prisma.user.findUnique({ where: { id: userId } });
-        if (u?.email === 'guest@odinbook.test') {
+        socket.data.isGuest = u?.email === 'guest@odinbook.test';
+        if (socket.data.isGuest) {
           // ensure demo convo + start interval
           await ensureGuestDemo(io, userId);
         }
@@ -168,17 +169,19 @@ export function setupSockets(io) {
       // eslint-disable-next-line no-console
       console.log(`[socket] user ${userId} disconnected: ${reason}`);
       try {
-        // If this user is the guest and there are no more sockets for them,
-        // stop the demo interval.
+        // If this user is the guest, stop the demo interval.
+        // For guest, we clear on any disconnect to ensure demo stops on logout.
+        const isGuest = socket.data.isGuest;
         const room = io.sockets.adapter.rooms.get(`user:${userId}`);
         const hasSockets = room && room.size > 0;
-        if (!hasSockets) {
+        if (isGuest || !hasSockets) {
           const entry = guestDemoIntervals.get(userId);
           if (entry) {
             try { if (entry.messageIntervalId) clearInterval(entry.messageIntervalId); } catch (e) {}
             try { if (entry.actionIntervalId) clearInterval(entry.actionIntervalId); } catch (e) {}
+            try { if (entry.postIntervalId) clearInterval(entry.postIntervalId); } catch (e) {}
             guestDemoIntervals.delete(userId);
-            console.log(`[socket] stopped guest demo intervals for ${userId}`);
+            console.log(`[socket] stopped guest demo intervals for ${userId} on disconnect`);
           }
         }
       } catch (err) {
