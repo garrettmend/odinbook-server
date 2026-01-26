@@ -421,6 +421,18 @@ export async function ensureGuestDemo(io, guestUserId) {
     entry = guestDemoIntervals.get(guestUserId) || {};
     guestDemoIntervals.set(guestUserId, { ...entry, postIntervalId });
     console.log(`[socket] started guest demo post interval for ${guestUserId}`);
+
+    // Safety timeout: stop demo after 10 minutes to prevent runaway
+    setTimeout(() => {
+      const entry = guestDemoIntervals.get(guestUserId);
+      if (entry) {
+        clearInterval(entry.messageIntervalId);
+        clearInterval(entry.actionIntervalId);
+        clearInterval(entry.postIntervalId);
+        guestDemoIntervals.delete(guestUserId);
+        console.log(`[socket] auto-stopped guest demo intervals for ${guestUserId} after timeout`);
+      }
+    }, 10 * 60 * 1000); // 10 minutes
   } catch (err) {
     console.error('[guest demo] setup failed', err?.message ?? err);
   }
