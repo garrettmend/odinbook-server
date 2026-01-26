@@ -152,6 +152,18 @@ export function setupSockets(io) {
       socket.leave(`conversation:${conversationId}`);
     });
 
+    socket.on("logout", () => {
+      // Stop guest demo immediately on logout
+      const entry = guestDemoIntervals.get(userId);
+      if (entry) {
+        try { if (entry.messageIntervalId) clearInterval(entry.messageIntervalId); } catch (e) {}
+        try { if (entry.actionIntervalId) clearInterval(entry.actionIntervalId); } catch (e) {}
+        try { if (entry.postIntervalId) clearInterval(entry.postIntervalId); } catch (e) {}
+        guestDemoIntervals.delete(userId);
+        console.log(`[socket] stopped guest demo intervals for ${userId} on logout`);
+      }
+    });
+
     socket.on("disconnect", (reason) => {
       // eslint-disable-next-line no-console
       console.log(`[socket] user ${userId} disconnected: ${reason}`);
