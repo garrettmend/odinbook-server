@@ -12,6 +12,11 @@ const { Pool } = pg;
 //
 // We use the Postgres driver adapter.
 const pool = new Pool({ connectionString: env.databaseUrl });
-const adapter = new PrismaPg(pool);
+
+// The driver adapter ignores `?schema=` in DATABASE_URL and defaults to
+// `public`, so pass it through explicitly (migrations already honor it).
+const schemaMatch = env.databaseUrl.match(/[?&]schema=([^&#]+)/);
+const schema = schemaMatch ? decodeURIComponent(schemaMatch[1]) : undefined;
+const adapter = new PrismaPg(pool, schema ? { schema } : undefined);
 
 export const prisma = new PrismaClient({ adapter });
