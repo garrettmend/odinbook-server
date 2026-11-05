@@ -80,101 +80,107 @@ authRouter.post("/guest", async (req, res, next) => {
       });
     }
 
-    // Find some other users to create pending friend requests from
-    const others = await prisma.user.findMany({ where: { NOT: { id: guest.id } }, take: 6 });
-    for (const other of others) {
-      try {
-        await prisma.friendRequest.create({
-          data: {
-            senderId: other.id,
-            receiverId: guest.id,
-            status: 'PENDING',
-          },
-        });
-      } catch (e) {
-        // ignore unique violations
-      }
-    }
+    // Demo data for the guest. Each piece is only created when it's missing,
+    // so repeated guest logins don't pile up duplicate chats, likes and
+    // notifications.
+    const others = await prisma.user.findMany({
+      where: { NOT: { id: guest.id } },
+      orderBy: { createdAt: "asc" },
+      take: 6,
+    });
 
-    // Create notifications for those friend requests so guest sees them
-    for (const other of others) {
+    const notifyGuest = async (type, data) => {
       try {
-        await createAndEmitNotification(getIO(), {
-          userId: guest.id,
-          type: 'friend_request',
-          data: {
-            senderId: other.id,
-            senderName: other.name || other.email,
-            link: `/users/${other.id}`,
-          },
-        });
+        await createAndEmitNotification(getIO(), { userId: guest.id, type, data });
       } catch (e) {
         // ignore
       }
-    }
+    };
 
-    // Create a couple of conversations/messages with other users
-    if (others.length > 0) {
-      for (let i = 0; i < Math.min(3, others.length); i++) {
-        const participant = others[i];
-        // create a simple conversation between guest and participant
-        const conv = await prisma.conversation.create({
-          data: {
-            isGroup: false,
-            members: { create: [{ userId: guest.id }, { userId: participant.id }] },
-          },
-        });
-        await prisma.message.createMany({
-          data: [
-            { conversationId: conv.id, senderId: participant.id, content: `Hi Guest, this is ${participant.name || participant.email}` },
-            { conversationId: conv.id, senderId: guest.id, content: `Hello ${participant.name || participant.email}, thanks for connecting.` },
+    // Pending friend requests from other users, unless the pair already has a
+    // request in either direction (pending, accepted or otherwise).
+    for (const other of others) {
+      const existingRequest = await prisma.friendRequest.findFirst({
+        where: {
+          OR: [
+            { senderId: other.id, receiverId: guest.id },
+            { senderId: guest.id, receiverId: other.id },
           ],
+        },
+        select: { id: true },
+      });
+      if (existingRequest) continue;
+
+      try {
+        await prisma.friendRequest.create({
+          data: { senderId: other.id, receiverId: guest.id, status: "PENDING" },
         });
-        // create a notification for the guest about the message
-        try {
-          await createAndEmitNotification(getIO(), {
-            userId: guest.id,
-            type: 'message',
-            data: {
-              senderId: participant.id,
-              senderName: participant.name || participant.email,
-              conversationId: conv.id,
-              link: `/conversations/${conv.id}`,
-              messagePreview: `Hi Guest, this is ${participant.name || participant.email}`,
-            },
-          })
-        } catch (e) {
-          // ignore
-        }
-        
+      } catch (e) {
+        continue; // created by a concurrent guest login
       }
+      await notifyGuest("friend_request", {
+        senderId: other.id,
+        senderName: other.name || other.email,
+        link: `/users/${other.id}`,
+      });
     }
 
-    // Add likes from some users to guest posts
-    const guestPosts = await prisma.post.findMany({ where: { authorId: guest.id }, take: 5 });
-    if (guestPosts.length && others.length) {
-      for (const p of guestPosts) {
+    // A 1:1 conversation with each of the first few users, unless one exists.
+    for (const participant of others.slice(0, 3)) {
+      const existingConversation = await prisma.conversation.findFirst({
+        where: {
+          isGroup: false,
+          AND: [
+            { members: { some: { userId: guest.id } } },
+            { members: { some: { userId: participant.id } } },
+            { members: { every: { userId: { in: [guest.id, participant.id] } } } },
+          ],
+        },
+        select: { id: true },
+      });
+      if (existingConversation) continue;
+
+      const participantName = participant.name || participant.email;
+      const conv = await prisma.conversation.create({
+        data: {
+          isGroup: false,
+          members: { create: [{ userId: guest.id }, { userId: participant.id }] },
+        },
+      });
+      await prisma.message.createMany({
+        data: [
+          { conversationId: conv.id, senderId: participant.id, content: `Hi Guest, this is ${participantName}` },
+          { conversationId: conv.id, senderId: guest.id, content: `Hello ${participantName}, thanks for connecting.` },
+        ],
+      });
+      await notifyGuest("message", {
+        senderId: participant.id,
+        senderName: participantName,
+        conversationId: conv.id,
+        link: `/conversations/${conv.id}`,
+        messagePreview: `Hi Guest, this is ${participantName}`,
+      });
+    }
+
+    // A like on each guest post that doesn't have one yet.
+    if (others.length) {
+      const unlikedPosts = await prisma.post.findMany({
+        where: { authorId: guest.id, likedBy: { none: {} } },
+        take: 5,
+      });
+      for (const p of unlikedPosts) {
         const liker = others[Math.floor(Math.random() * others.length)];
         try {
           await prisma.post.update({ where: { id: p.id }, data: { likedBy: { connect: { id: liker.id } } } });
         } catch (e) {
-          // ignore
+          continue;
         }
-        // create a like notification for the guest post
-        try {
-          await createAndEmitNotification(getIO(), {
-            userId: guest.id,
-            type: 'post_like',
-            data: {
-              senderId: liker.id,
-              senderName: liker.name || liker.email,
-              postId: p.id,
-              link: `/posts/${p.id}`,
-            },
-          })
-        } catch (e) {
-          // ignore
-        }
+        await notifyGuest("post_like", {
+          senderId: liker.id,
+          senderName: liker.name || liker.email,
+          postId: p.id,
+          link: `/posts/${p.id}`,
+        });
       }
     }
 
